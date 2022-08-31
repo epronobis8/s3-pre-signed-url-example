@@ -13,6 +13,38 @@ resource "aws_s3_bucket" "presigned-bucket" {
   }
 }
 
+/*
+resource "aws_s3_bucket_policy" "bucket-access" {
+  bucket = aws_s3_bucket.presigned-bucket.id
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Id": "presigned-bucket-policy",
+    "Statement": [
+    {
+      "Sid": "put-object",
+      "Effect": "Allow",
+      "Principal": "arn:aws:iam::${var.aws-account-number}:user/${aws_iam_user.put.name}",
+      "Action": "s3:PutObject",
+      "Resource": [
+        "arn:aws:s3:::${var.s3-bucket-name}/*"
+      ]
+    },
+    {
+      "Sid": "get-object",
+      "Effect": "Allow",
+      "Principal": "arn:aws:iam::${var.aws-account-number}:user/${aws_iam_user.get.name}",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "arn:aws:s3:::${var.s3-bucket-name}/*"
+      ]
+    }
+  ]
+})
+}
+*/
+  
+
+
 #iam users
 resource "aws_iam_user" "get" {
   name = "presigned-get-objects"
